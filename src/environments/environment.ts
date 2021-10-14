@@ -3,7 +3,29 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: '', // was: http://localhost:8080
+  imgPath: '',
+  //apiUrl: 'http://francescomar.myds.me:5010',
+  smartlistJcrPath: '/configuration/smartlist/endoscopia-chivasso',
+  smartilistJcrfieldProperties: [
+    "PropertyAuto",
+    "PropertyDescription",
+    "PropertyEditors",
+    "PropertyMaxLength",
+    "PropertyMulti",
+    "PropertyName",
+    "PropertyProtected",
+    "PropertyRequired",
+    "PropertyType",
+    "value"],
+  newCardTitle: "Scheda infermeristica",
+  pathWorkAreaSchedaDesktop: 'next-forms/dati/endoscopia-chivasso/archivio/WorkArea/Desktop',
+  // pathWorkAreaSchedaTablet: 'next-forms/dati/endoscopia-chivasso/archivio/WorkArea/Tablet',
+  pathWorkAreaSchedaTablet: 'next-forms/dati/endoscopia-chivasso/archivio/WorkArea/Desktop',
+  pathWorkAreaSchedaAttive: 'next-forms/dati/endoscopia-chivasso/archivio/WorkArea/Desktop',
+  printPostUrl: 'next-forms/pdfscheda',
+  defaultMaxLength: 4096
 };
 
 /*

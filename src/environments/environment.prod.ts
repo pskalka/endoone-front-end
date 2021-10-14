@@ -1,3 +1,25 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'http://192.168.1.240:8080',
+  imgPath: 'content/schedaInf/',
+  smartlistJcrPath: '/configuration/smartlist/endoscopia-chivasso',
+  smartilistJcrfieldProperties: [
+    "PropertyAuto",
+    "PropertyDescription",
+    "PropertyEditors",
+    "PropertyMaxLength",
+    "PropertyMulti",
+    "PropertyName",
+    "PropertyProtected",
+    "PropertyRequired",
+    "PropertyType",
+    "value"],
+  newCardTitle: "Scheda infermeristica",
+  // apiUrl: 'http://localhost:8080',
+  pathWorkAreaSchedaDesktop: 'next-forms/dati/endoscopia-chivasso/archivio/WorkArea/Desktop',
+  // pathWorkAreaSchedaTablet: 'next-forms/dati/endoscopia-chivasso/archivio/WorkArea/Tablet',
+  pathWorkAreaSchedaTablet: 'next-forms/dati/endoscopia-chivasso/archivio/WorkArea/Desktop',
+  pathWorkAreaSchedaAttive: 'next-forms/dati/endoscopia-chivasso/archivio/WorkArea/Desktop',
+  printPostUrl: 'next-forms/pdfscheda',
+  defaultMaxLength: 4096
 };
