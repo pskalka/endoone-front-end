@@ -1,0 +1,110 @@
+<table class="table table-striped table-bordered">
+    <tbody>
+
+        <tr class="whiteBackground">
+            <td>
+                <mat-form-field>
+                <mat-select name="test" [(ngModel)]="newRowText" #test>
+                    <mat-option *ngFor="let item of template.dropdownvalues" [value]="item.name">
+                        {{item.name}}
+                    </mat-option>
+                </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                <input matInput   type="text" [(ngModel)]="newRowText" />
+            </mat-form-field>
+            </td>
+            <td>
+                <span class="material-icons blue margin-l-r-20px" (click)="addRow()" style="cursor: pointer;">add_circle_outline</span>
+                <ng-container *ngIf="template.moreColumns">
+                    <span class="material-icons green margin-l-r-20px" (click)="addColumn()" style="cursor: pointer;">alarm_add</span>
+                </ng-container>
+            </td>
+
+        </tr>
+    </tbody>
+
+</table>
+<div style="overflow-x:auto;">
+    <table class="table table-striped table-sm table-bordered">
+        <colgroup>
+            <col *ngFor="let colWidth of template.colWidths" [width]="colWidth">
+        </colgroup>
+        <thead class="TableHeader">
+            <tr>
+                <th *ngFor="let header of template.columns; let idxColHeader = index">
+                    <div>
+                        <ng-container *ngIf="idxColHeader >= this.template.originDefaultColumnsNum">
+                            <span class="material-icons" (click)="deleteColumn(idxColHeader)" style="cursor: pointer;">cancel</span>
+                        </ng-container>
+                    </div>
+                    <div>
+                        <!-- <ng-container *ngIf="isTimeColumn(template.preferiti[0].type[0]) && idxColHeader > 0; else noFirstHesaderColumn "> -->
+                        <ng-container *ngIf="isTimeColumn(header.type); else noFirstHesaderColumn ">
+                            <input [(ngModel)]="header.value" style="width: 60px;"  [format]="24" placeholder="ora" aria-label="default time" [ngxTimepicker]="defaultTime" readonly name="{{'ora_rilevazione_col[' + idxColHeader + ']'}}" id="{{'ora_rilevazione_col[' + idxColHeader + ']'}}" (focusout)="eventTest('ora_rilevazione_col[' + idxColHeader + ']')">
+                            <ngx-material-timepicker #defaultTime></ngx-material-timepicker>
+                        </ng-container>
+                        <!-- <ng-container *ngIf="!isTimeColumn(template.preferiti[0].type[0])"> -->
+                        <ng-template #noFirstHesaderColumn>
+                            <input value="{{header.name}}" style="width: 125px;" type="{{header.type}}" name="{{header.name}" [disabled]='true' #prefer/>
+                            <!-- {{header.name}} -->
+                        </ng-template>
+                    </div>
+                </th>
+                <!-- <ng-container *ngIf="template.moreColumns">
+                    <th *ngFor="let field of newColumns; let k = index">
+                        <input placeholder="ora" aria-label="default time" [ngxTimepicker]="defaultTime" readonly name="ora_rilevazione">
+                        <ngx-material-timepicker #defaultTime [defaultTime]="'11:11 pm'"></ngx-material-timepicker>
+                        <button class="btn btn-default" type="button" (click)="deleteColumn(k)">X</button>
+                    </th>
+                </ng-container> -->
+                <!-- <th></th> -->
+
+
+            </tr>
+        </thead>
+        <tbody >
+
+            <tr *ngFor="let row of template.preferiti; let i = index"  class="whiteBackground">
+                <td>
+                    <input class="form-control" style="width: 300px;" value="{{row.name}}" type="text" name="{{template.columns[0]}}" [disabled]='i < template.preferiti.length ' #prefer/>
+                </td>
+
+                <td *ngFor="let field of template.columns | slice:1; let j = index" #colVal>
+                    <ng-container *ngIf="isTimeColumn(row.cells[j].type)">
+                        <input class="form-control"  [(ngModel)]="row.cells[j].value" type="{{row.cells[j].type}}" name="{{row.cells[j].id}}" id="{{row.cells[j].id}}" (focusout)="postData()" />
+                    </ng-container>
+                    
+                    <ng-container *ngIf="isEditColumn(row.cells[j].type) && this.template.label===this.multiSelectFieldNames.MONITORAGGIO_PARAMETRI_VITALI">
+                        <input class="form-control" style="width: 100px;" [(ngModel)]="row.cells[j].value" type="{{row.cells[j].type}}" name="{{row.cells[j].id}}" id="{{row.cells[j].id}}" (focusout)="postData()" />
+                    </ng-container>
+
+                    <ng-container *ngIf="isEditColumn(row.cells[j].type) && this.template.label===this.multiSelectFieldNames.SEDAZIONE">
+                        <input class="form-control" style="width: 135px;" [(ngModel)]="row.cells[j].value" type="{{row.cells[j].type}}" name="{{row.cells[j].id}}" id="{{row.cells[j].id}}" (focusout)="postData()" />
+                    </ng-container>
+
+                    
+                    <ng-container *ngIf="isEditColumn(row.cells[j].type) && this.template.label !=this.multiSelectFieldNames.MONITORAGGIO_PARAMETRI_VITALI && this.template.label != this.multiSelectFieldNames.SEDAZIONE">
+                        <input class="form-control" [(ngModel)]="row.cells[j].value" type="{{row.cells[j].type}}" name="{{row.cells[j].id}}" id="{{row.cells[j].id}}" (focusout)="postData()" />
+                    </ng-container>
+
+                    <ng-container *ngIf="isSignColumn(row.cells[j].type)">
+                        <input class="form-control" [(ngModel)]="row.cells[j].value" type="checkbox" name="{{row.cells[j].id}}" id="{{row.cells[j].id}}" (change)="postData()" />
+                    </ng-container>
+                    
+                    <ng-container *ngIf="islinkColumn(row.cells[j].type)">
+                        link
+                    </ng-container>
+                </td>
+                <ng-container *ngIf="i >= this.template.originPreferitiRowsNum">
+                    <td>
+                        <span class="material-icons" (click)="deleteRow(i)" style="cursor: pointer;">cancel</span>
+                    </td>
+                </ng-container>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>

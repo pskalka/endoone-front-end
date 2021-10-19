@@ -1,0 +1,41 @@
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+}
+
+.option{
+    font-size: 0.9em;;
+}
+.titleOption{
+    font-size: 1.1em;;
+    width: auto;
+}
+.bordingCard{
+    border: 0.2vh solid #B5B2A4;
+    border-radius: 1.2vh;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0.5vh;
+}
+
+mat-radio-group {
+    margin:1px;
+}
+
+legend{
+    margin:0px;
+}
+
+.height{
+    height: 25px;
+}
+.margin-top-input{
+    margin-top:12px !important;
+}
+.form-height{
+    margin-bottom:0px;
+}
+.no-margin{
+    margin:0px;
+}

@@ -1,0 +1,22 @@
+<table style="width:100%; background-color: white; cursor: default;">
+   <tr>
+      <td class="auto-align"><img [src]="this.image_navbar" [routerLink]="['/']" id="logoNav"></td>
+      <td class="auto-align"><img [src]="this.image_pause" [routerLink]="['/home']" routerLinkActive="active"
+            *ngIf="this.checkIfIsNewCard()"></td>
+      <td class="auto-align"><img [src]="this.image_stop" *ngIf="this.checkIfIsNewCard()"></td>
+      <td class="auto-align">
+         <h2 *ngIf="this.checkIfIsNewCard()">Scheda infermeristica</h2>
+         <h2 *ngIf="this.checkIfIsNewCard()">Fase: {{this.getPhase()}}</h2>
+      </td>
+      <td class="auto-align" style="float: left;">
+         <h2 *ngIf="checkPrevious()">{{this.getPreviousText()}}</h2>
+      </td>
+      <td class="auto-align" style="float: left;"><img [src]="this.image_previous" id="previousStep"
+            *ngIf="checkPrevious()" (click)="this.goToPreviousPage()"></td>
+      <td class="auto-align" style="float: left;"><img [src]="this.image_next" id="nextStep" *ngIf="checkNext()"
+            (click)="this.goToNextPage()"></td>
+      <td class="auto-align" style="float: left;">
+         <h2 *ngIf="checkNext()">{{this.getNextText()}}</h2>
+      </td>
+   </tr>
+</table>

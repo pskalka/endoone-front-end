@@ -1,0 +1,165 @@
+<div class="container-fluid">
+
+   <app-navbar page_header="Accoglienza e Pre-Procedura 2/2" [can_go_back]="true" [can_go_forward]="true"
+      previous_text="Accoglienza Pre-Procedura 1/2" next_text="Intra-Procedura" (nav_requested)="nav_requested($event)">
+   </app-navbar>
+
+   <div class="row">
+      <div class="col-3">
+         <fieldset class="col bordingCard">
+            <legend>Data</legend>
+            <div class="form-group">
+               {{this.data_visita | date: 'dd/MM/yyyy'}}
+            </div>
+         </fieldset>
+         <div>
+            <fieldset class="col bordingCard">
+               <legend>Dati</legend>
+               <table>
+                  <tr>
+                     <td>Cognome:&nbsp;</td>
+                     <td>{{this.cognome}}</td>
+                  </tr>
+                  <tr>
+                     <td>Nome: </td>
+                     <td>{{this.nome}}</td>
+                  </tr>
+               </table>
+            </fieldset>
+            <!-- <app-anagrafica class="col colPadding" [cognome]="cognome" [nome]="nome" [data_di_nascita]="data_di_nascita"
+               [label]="'Dati Anagrafici'" [numeroProtocollo]="this.protocol.protocolNumber"></app-anagrafica> -->
+         </div>
+         <div>
+            <fieldset class="col bordingCard">
+               <legend>Motivo Esame</legend>
+               <app-motivo-esame-urgenza [esame_motivo]="esame_motivo" [urgenza]="urgenza"></app-motivo-esame-urgenza>
+            </fieldset>
+         </div>
+      </div>
+
+      <div class="col-sm-3" style="min-width: 40px; max-width: 370px;">
+         <fieldset class="bordingCard">
+            <legend class="titleOption">Tipologia
+               <!-- <app-required-field-mark [isVisible]="smartlist.IsRequired"></app-required-field-mark> -->
+               <app-required-field-mark></app-required-field-mark>
+            </legend>
+            <app-single-select-control [smartlistName]='"tipologia"' label="Tipologia" [selectedItem]="tipologia"
+               class="col colPadding" (valueChanged)="this.tipologia = $event" style="height: 98%;">
+            </app-single-select-control>
+         </fieldset>
+      </div>
+
+      <div class="col-sm-3">
+         <fieldset class="bordingCard" style="min-width: 60%; max-width: 85%;height: 98%">
+            <legend>Portatore</legend>
+            <app-multi-select-control [smartlistName]="this.portatore_smartlist">
+            </app-multi-select-control>
+         </fieldset>
+      </div>
+      <div class="col-sm-3">
+         <fieldset class="bordingCard" style="min-width: 30%; max-width: 80%;height: 30%">
+            <legend>Sala</legend>
+            <app-selezione-sala [selezione_sala_value]="selezione_sala_value" fieldName="selezione_sala_value">
+            </app-selezione-sala>
+         </fieldset>
+         <fieldset class="bordingCard" style="min-width: 30%; max-width: 80%;height: 70%">
+            <legend>Valutazione Dolore NRS</legend>
+            <app-valutazione-dolore-nrs [valutazione_dolore_nrs_value]="valutazione_dolore_nrs_value"
+               fieldName="valutazione_dolore_nrs_value"
+               [valutazione_dolore_nrs_intervento]="valutazione_dolore_nrs_intervento"
+               interventoFieldName="valutazione_dolore_nrs_intervento"></app-valutazione-dolore-nrs>
+         </fieldset>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col">
+         <fieldset class="col bordingCard">
+            <legend>Dati Informativi Pre-Procedura</legend>
+            <div class="row">
+               <div class="col-sm-3">
+                  <fieldset class="bordingCard" style="min-width: 55%; max-width: 85%;height: 98%">
+                     <legend>Dati Informativi</legend>
+                     <app-multi-select-control [smartlistName]="this.dati_informativi_smartlist">
+                     </app-multi-select-control>
+                  </fieldset>
+               </div>
+               <div class="col-sm-3">
+                  <fieldset class="bordingCard" style="min-width: 55%; max-width: 85%;height: 98%">
+                     <legend class="titleOption">Preparazione Intestinale</legend>
+                     <app-multi-select-control [smartlistName]="this.preparazione_intestinale_smartlist">
+                     </app-multi-select-control>
+                  </fieldset>
+               </div>
+               <div class="col-sm-3">
+                  <fieldset class="bordingCard" style="min-width: 55%; max-width: 85%;height: 98%">
+                     <legend>Terapia Anticoagulante</legend>
+                     <app-multi-select-control [smartlistName]="this.terapia_anticoagulante_smartlist_name">
+                     </app-multi-select-control>
+                     <hr>
+                     <div class="row">
+                        <div class="col-5">Sospesa il</div>
+                        <div class="col">
+                           <mat-form-field class="data_visita">
+                              <input matInput [matDatepicker]="mdpTerapiaAnticoagulanteSospesa" placeholder="gg/mm/aaaa"
+                                 [value]="fc_terapia_anticoagulante_sospesa_il.value"
+                                 (dateChange)="addEvent('change', 'terapia_anticoagulante_sospesa', $event)">
+                              <mat-datepicker-toggle matSuffix [for]="mdpTerapiaAnticoagulanteSospesa">
+                              </mat-datepicker-toggle>
+                              <mat-datepicker #mdpTerapiaAnticoagulanteSospesa></mat-datepicker>
+                           </mat-form-field>
+                        </div>
+                     </div>
+                  </fieldset>
+               </div>
+               <div class="col-sm-3">
+                  <fieldset class="bordingCard">
+                     <legend class="titleOption">Stato d'ansia
+                        <!-- <app-required-field-mark [isVisible]="smartlist.IsRequired"></app-required-field-mark> -->
+                        <app-required-field-mark></app-required-field-mark>
+                     </legend>
+                     <app-single-select-control [smartlistName]='"stato_ansia"' [label]="this.statoAnsiaHeader"
+                        [selectedItem]="stato_ansia" class="col colPadding" (valueChanged)="stato_ansia = $event">
+                     </app-single-select-control>
+                  </fieldset>
+
+                  <fieldset class="bordingCard" style="min-width: 55%; height: 40%">
+                     <legend class="titleOption">Stato Respiratorio</legend>
+                     <div>
+                        <mat-radio-group aria-labelledby="Stato Respiratorio" [(ngModel)]="stato_respiratorio"
+                           (change)="onChangeRf($event)" name="stato_respiratorio" [(value)]="stato_respiratorio">
+                           <mat-radio-button class="mat-radio-button mat-accent option" value="eupnoico">Eupnoico
+                           </mat-radio-button><br />
+                           <mat-radio-button class="mat-radio-button mat-accent option" value="dispnoico">Dispnoico
+                           </mat-radio-button>
+                        </mat-radio-group>
+                     </div>
+                     <div class="row">
+                        <div class="col-7">o2-Terapia (L/min)</div>
+                        <div class="col"><input matInput type="number" min="0" max="12" [(ngModel)]="o2_terapia_l_min"
+                              name="o2_terapia_l_min" (change)="txtO2TerapiaOnChange()"
+                              class="form-control height margin-top-input py-2 border" style="width: 45px;">
+                        </div>
+
+                     </div>
+                     <hr />
+                  </fieldset>
+               </div>
+            </div>
+         </fieldset>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-9">
+         <fieldset class="bordingCard">
+            <legend class="titleOption">Note</legend>
+            <app-txt-area-field placeholder="Note" [value]="note_2" fieldName="note_2"></app-txt-area-field>
+         </fieldset>
+      </div>
+      <div class="col-3" class="consenso_informato">
+         <app-chk-field label='Consenso Informato' fieldName="consenso_informato" [value]="consenso_informato">
+         </app-chk-field>
+      </div>
+   </div>
+
+</div>

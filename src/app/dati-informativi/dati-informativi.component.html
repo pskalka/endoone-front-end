@@ -1,0 +1,52 @@
+<fieldset class="bordingCard">
+    <legend>{{template.label}}</legend>
+    <div class="row">
+        <div class="col">
+            <app-chk-field [label]='glaucomaLabel' [fieldName]="glaucomaFieldName"></app-chk-field>
+        </div>
+        <div class="col">
+            <app-chk-field [label]='allergiaLabel' [fieldName]="allergiaFieldName"></app-chk-field><br />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">Preparazione intestinale</div>
+        <div class="col">
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button value="completa">Completa</mat-radio-button><br>
+                <mat-radio-button value="parziale">Parziale</mat-radio-button>
+
+            </mat-radio-group>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <app-chk-field [label]='terapiaAntiCoagulanteLabel' [fieldName]="terapiaAntiCoagulanteFieldName"></app-chk-field><br />
+        </div>
+        <div class="col">
+            <mat-form-field>
+                <label>Sospesa il</label>
+                <input matInput #input>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">Stato respiratorio</div>
+        <div class="col">
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button value="eupnoico">Eupnoico</mat-radio-button><br>
+                <mat-radio-button value="dispnoico">Dispnoico</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <mat-form-field>
+                <label>02 - Terapia L/MIN</label>
+                <input matInput #input>
+            </mat-form-field>
+        </div>
+    </div>
+    <app-chk-field [label]='consensoLabel' [fieldName]="consensoFieldName"></app-chk-field>
+</fieldset>

@@ -1,0 +1,53 @@
+<fieldset class="bordingCard">
+    <!-- <legend class="titleOption">{{template.label}}</legend> -->
+    <legend class="titleOption">{{this.labelTemplate}}<app-required-field-mark [isVisible]="isRequired"></app-required-field-mark></legend>
+    <!-- <mat-radio-group aria-labelledby="example-radio-group-label " class="example-radio-group no-margin" [(ngModel)]="selectedRadioValue "> -->
+        <mat-radio-group
+            *ngFor="let radioField of this.getKeys(this.smartlist.formRadioFields)"
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group no-margin"
+            [(ngModel)]="selectedItem"
+            (change)="OnChangeRadioField($event)"
+            [name] = "radioField">
+            <!-- <mat-radio-button class="mat-radio-button mat-accent option" *ngFor="let item of template.radiovalues " [value]="item.value "> -->
+            <mat-radio-button
+                *ngFor="let value of this.getKeys(this.smartlist.formRadioFields.get(radioField).get(this.values))"
+                class="mat-radio-button mat-accent option"
+                [value]="this.smartlist.getRadioFields().get(radioField).get(this.values).get(value)">
+                <!-- {{item.viewValue}} -->
+                {{value}}
+            </mat-radio-button>
+        </mat-radio-group>
+
+    <!-- <mat-form-field  class="height"> -->
+    <mat-form-field
+        *ngFor="let dropDownListField of this.getKeys(this.smartlist.getDdlFields())"
+        class="height">
+        <mat-select
+            [(ngModel)]="selectedItem"
+            (selectionChange)="OnChangeDdlField($event)"
+            [id] = "dropDownListField">
+            <!-- <mat-option *ngFor="let item of template.dropdownvalues " [value]="item.value "> -->
+                <mat-option
+                    *ngFor="let value of this.getKeys(this.smartlist.getDdlFields().get(dropDownListField).get(this.values))"
+                    [value]="this.smartlist.getDdlFields().get(dropDownListField).get(this.values).get(value)">
+                <!-- {{item.viewValue}} -->
+                {{value}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field class="height" >
+        <input matInput #input matInputrequired [(ngModel)]="selectedTextValue " (change)= "textChangeValue()" name="selectedTextValue">
+        
+    </mat-form-field> -->
+    <form class="form-height">
+        <div class="form-group">
+         <input type="text" [(ngModel)]="selectedItem" name="selectedTextValue" (focusout)= "textChangeValue()" class="form-control height margin-top-input" >
+        </div>
+    </form>
+    <!-- <div class="row justify-content-center">
+        <button mat-raised-button color="primary" (click)="onSubmit()">Salva</button>
+    </div> -->
+<hr/>
+<mat-checkbox [(ngModel)]="presenza_accompagnatore" (change)="putPresenzaAccompagnatore()">Presenza accompagnatore</mat-checkbox>
+</fieldset>

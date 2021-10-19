@@ -1,0 +1,33 @@
+
+   <div>
+      <mat-radio-group *ngFor="let radioField of this.getKeys(this.smartlist.formRadioFields)"
+         aria-labelledby="example-radio-group-label " class="example-radio-group no-margin"
+         [(ngModel)]="selectedTextValue" (change)="OnChangeRadioField($event)" [name]="radioField"
+         [(value)]="selectedTextValue" [disabled]="isDisabled()">
+         <mat-radio-button
+            *ngFor="let value of this.getKeys(this.smartlist.formRadioFields.get(radioField).get(this.values))"
+            class="mat-radio-button mat-accent option"
+            [value]="this.smartlist.formRadioFields.get(radioField).get(this.values).get(value)">
+            {{value}}
+         </mat-radio-button>
+      </mat-radio-group>
+
+      <mat-form-field class="height" *ngFor="let dropDownListField of this.getKeys(this.smartlist.formDdlFields)">
+         <mat-select [(ngModel)]="selectedTextValue" (selectionChange)="OnChangeDdlField($event)"
+            [(value)]="selectedTextValue" [disabled]="isDisabled()">
+            <mat-option
+               *ngFor="let value of this.getKeys(this.smartlist.formDdlFields.get(dropDownListField).get(this.values)) "
+               [value]="this.smartlist.formDdlFields.get(dropDownListField).get(this.values).get(value)">
+               {{value}}
+            </mat-option>
+         </mat-select>
+      </mat-form-field>
+
+      <form class="form-height">
+         <div class="form-group">
+            <input type="text" [(ngModel)]="selectedTextValue" name="selectedTextValue"
+               [maxlength]="smartlist.MaxLength" (focusout)="textFocusOut()"
+               class="form-control height margin-top-input" [readonly]="isDisabled()">
+         </div>
+      </form>
+   </div>

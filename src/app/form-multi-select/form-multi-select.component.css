@@ -1,0 +1,30 @@
+
+.TableHeader {
+    background-color: #EBEADB !important;
+}
+
+.whiteBackground{
+    background-color: white !important;
+}
+
+.bord{
+    border: 1px solid black !important;
+    border-collapse: collapse;
+}
+
+.blue {
+    color: cornflowerblue;
+}
+
+.green {
+    color: green;
+}
+
+.valign-middle {
+    vertical-align: middle;
+}
+
+.margin-l-r-20px {
+    margin-left: 20px;
+    margin-right: 20px;
+}

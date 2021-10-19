@@ -1,0 +1,8 @@
+<mat-form-field>
+   <mat-select (selectionChange)="selectionChange($event)" [(value)]="valutazione_dolore_nrs_value">
+      <mat-option *ngFor="let value of values" [value]="value">
+         {{value}}
+      </mat-option>
+   </mat-select>
+</mat-form-field>
+<app-txt-area-field placeholder="Intervento" [value]="valutazione_dolore_nrs_intervento" [fieldName]="this.interventoFieldName" (change)="intervento_change($event)"></app-txt-area-field>

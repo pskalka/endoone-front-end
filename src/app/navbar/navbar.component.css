@@ -1,0 +1,99 @@
+#logout{
+  cursor: pointer;
+}
+  
+#test {
+  margin-right: 0em !important;
+}
+
+#logoNav{
+  height: 8vh;
+}
+
+.options{
+    font-size: 1.1em;
+}
+
+nav {
+  max-height:7.5vh;
+}
+
+h2{
+  margin:0;
+  word-wrap: break-word;
+}
+
+#navbarSupportedContent{
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+.mar{
+  margin-left: 10px;
+  margin-right: 10px;  
+}
+
+.mar_right{
+  margin-right: 10px !important;
+}
+
+@media screen and (min-width: 1301px) {
+  h2 {
+    font-size: 1.1em;
+  }
+}
+@media screen and (max-width: 1300px) {
+  h2 {
+    font-size: 0.8em;
+  }
+  img{
+    height:16px;
+  }
+  li{
+    width: 90%;
+  }
+
+}
+
+.navbar {
+  min-height: 80px;
+}
+
+.navbar-brand {
+  padding: 0 15px;
+  height: 80px;
+  line-height: 80px;
+}
+
+.navbar-toggle {
+  /* (80px - button height 34px) / 2 = 23px */
+  margin-top: 23px;
+  padding: 9px 10px !important;
+}
+
+@media (min-width: 768px) {
+  .navbar-nav > li > a {
+    /* (80px - line-height of 27px) / 2 = 26.5px */
+    padding-top: 26.5px;
+    padding-bottom: 26.5px;
+    line-height: 27px;
+  }
+}
+.auto-align{
+  margin: auto;
+  text-align: center;
+  float: left;
+  display: block;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 1.1em;
+}
+.full-width{
+  margin: 0 0 0 0
+}
+
+
+
+.topnav {
+  overflow: hidden;
+}

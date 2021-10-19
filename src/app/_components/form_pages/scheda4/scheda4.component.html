@@ -1,0 +1,217 @@
+<div class="container-fluid">
+
+   <app-navbar page_header="Post-Procedura" [can_go_back]="true" [can_go_forward]="canGoForward"
+      previous_text="Intra-Procedura" next_text="Chiusura scheda" (nav_requested)="nav_requested($event)">
+   </app-navbar>
+
+   <div class="row">
+      <div class="col-2">
+         <fieldset class="col bordingCard">
+            <legend>Data</legend>
+            <div class="form-group div_1_line">
+               {{this.data_visita | date: 'dd/MM/yyyy'}}
+            </div>
+         </fieldset>
+      </div>
+      <div class="col-2">
+         <fieldset class="col bordingCard">
+            <legend>Ora inizio procedura</legend>
+            <div class="form-group div_1_line">
+               {{this.procedura_ora_inizio}}
+            </div>
+         </fieldset>
+      </div>
+      <div class="col-2">
+         <fieldset class="col bordingCard">
+            <legend>Ora fine procedura</legend>
+            <div class="form-group div_1_line">
+               {{this.procedura_ora_fine}}
+            </div>
+         </fieldset>
+      </div>
+      <div class="col-3">
+         <fieldset class="col bordingCard">
+            <legend>Ora dimissione<app-required-field-mark [isVisible]="isRequired('ora_dimissione')">
+               </app-required-field-mark>
+            </legend>
+            <div class="form-group div_1_line">
+               <input [(ngModel)]="ora_dimissione" placeholder="Ora" aria-label="Ora dimissione"
+                  [ngxTimepicker]="dtOraDimissione" [format]="24" readonly name="dtpOraDimissione"
+                  (focusout)="oraDimissioneFocusOut($event)">
+               <ngx-material-timepicker #dtOraDimissione [defaultTime]="this.ora_dimissione_default">
+               </ngx-material-timepicker>
+            </div>
+         </fieldset>
+      </div>
+      <div class="col-3">
+         <fieldset class="col bordingCard">
+            <legend>Sala</legend>
+            <div class="form-group">
+               {{this.selezione_sala_value}}
+            </div>
+         </fieldset>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-3">
+         <div>
+            <fieldset class="col bordingCard">
+               <legend>Dati</legend>
+               <table>
+                  <tr>
+                     <td>Cognome:</td>
+                     <td>{{this.cognome}}</td>
+                  </tr>
+                  <tr>
+                     <td>Nome:</td>
+                     <td>{{this.nome}}</td>
+                  </tr>
+                  <tr>
+                     <td>Tipologia:</td>
+                     <td>{{this.tipologia}}</td>
+                  </tr>
+                  <tr>
+                     <td>Urgenza:&nbsp;</td>
+                     <td>{{this.urgenza_label}}</td>
+                  </tr>
+                  <tr>
+                     <td>Motivo Esame:</td>
+                     <td>{{this.esame_motivo}}</td>
+                  </tr>
+               </table>
+            </fieldset>
+         </div>
+         <div>
+            <fieldset class="bordingCard" style="min-width: 40%; max-width: 80%;height: 97%">
+               <legend>Valutazione Dolore NRS<app-required-field-mark
+                     [isVisible]="isRequired('valutazione_dolore_nrs_value_4')"></app-required-field-mark>
+               </legend>
+               <app-valutazione-dolore-nrs [valutazione_dolore_nrs_value]="valutazione_dolore_nrs_value_4"
+                  fieldName="valutazione_dolore_nrs_value_4"
+                  [valutazione_dolore_nrs_intervento]="valutazione_dolore_nrs_intervento_4"
+                  (valueChanged)="vdnrsChanged($event)" (interventoChanged)="vdnrsInterventoChanged($event)"
+                  interventoFieldName="valutazione_dolore_nrs_intervento_4">
+               </app-valutazione-dolore-nrs>
+            </fieldset>
+         </div>
+      </div>
+      <div class="col-9">
+         <fieldset class="col bordingCard">
+            <legend>Monitoraggio Parametri Vitali</legend>
+            <app-test-multi [multiselectFieldName]='this.multiSelectFieldNames.MONITORAGGIO_PARAMETRI_VITALI'
+               jcrDataPrefix="MPR_4">
+            </app-test-multi>
+         </fieldset>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-12">
+         <fieldset class="col bordingCard">
+            <legend>Dati Informativi</legend>
+            <div class="row">
+               <div class="col-3">
+
+                  <div>
+                     <mat-label>Stato Respiratorio<app-required-field-mark
+                           [isVisible]="isRequired('stato_respiratorio_4')"></app-required-field-mark>
+                     </mat-label>
+                  </div>
+                  <div>
+                     <mat-radio-group aria-labelledby="Stato Respiratorio" [(ngModel)]="stato_respiratorio_4"
+                        (change)="onChangeRf($event)" name="stato_respiratorio_4" [(value)]="stato_respiratorio_4">
+                        <mat-radio-button class="mat-radio-button mat-accent option" value="eupnoico">Eupnoico
+                        </mat-radio-button><br />
+                        <mat-radio-button class="mat-radio-button mat-accent option" value="dispnoico">Dispnoico
+                        </mat-radio-button>
+                     </mat-radio-group>
+                  </div>
+                  <div class="row">
+                     <div class="col-7">o2-Terapia (L/min)<app-required-field-mark
+                           [isVisible]="isRequired('o2_terapia_l_min_4')"></app-required-field-mark>
+                     </div>
+                     <div class="col"><input matInput type="number" min="0" max="12" [(ngModel)]="o2_terapia_l_min_4"
+                           name="o2_terapia_l_min_4" (change)="txtO2TerapiaOnChange()"
+                           class="form-control height margin-top-input py-2 border" style="width: 45px;">
+                     </div>
+                  </div>
+                  <div>
+                     <app-chk-field label='Educazione Post-Procedura' fieldName="educazione_post_procedura"
+                        [(value)]="educazione_post_procedura"></app-chk-field>
+                     <app-required-field-mark [isVisible]="isRequired('educazione_post_procedura')">
+                     </app-required-field-mark>
+                  </div>
+                  <div>
+                     <app-chk-field label='Raccomandazioni Post-Sedazione' fieldName="raccomandazioni_post_sedazione"
+                        [(value)]="raccomandazioni_post_sedazione"></app-chk-field>
+                     <app-required-field-mark [isVisible]="isRequired('raccomandazioni_post_sedazione')">
+                     </app-required-field-mark>
+                  </div>
+
+               </div>
+               <div class="col-3">
+                  <fieldset class="bordingCard">
+                     <legend class="titleOption">Stato coscienza
+                        <!-- <app-required-field-mark [isVisible]="smartlist.IsRequired"></app-required-field-mark> -->
+                        <app-required-field-mark></app-required-field-mark>
+                     </legend>
+                     <app-single-select-control [smartlistName]='this.smartlistNameStatoCos'
+                        [label]="this.labelStatoCos" [selectedItem]="stato_coscienza_4" class="col colPadding"
+                        (valueChanged)="stato_coscienza_4 = $event"></app-single-select-control>
+                  </fieldset>
+               </div>
+               <div class="col-3">
+                  <fieldset class="bordingCard">
+                     <legend class="titleOption">Deambulazione
+                        <!-- <app-required-field-mark [isVisible]="smartlist.IsRequired"></app-required-field-mark> -->
+                        <app-required-field-mark></app-required-field-mark>
+                     </legend>
+                     <app-single-select-control [smartlistName]='this.smartlistNameDeambulazione'
+                        [label]="this.labelDeambulazione" [selectedItem]="deambulazione_4" class="col colPadding"
+                        (valueChanged)="this.deambulazione_4 = $event">
+                     </app-single-select-control>
+                  </fieldset>
+               </div>
+               <div class="col-3">
+                  <fieldset class="bordingCard">
+                     <legend class="titleOption">Dimissione
+                        <!-- <app-required-field-mark [isVisible]="smartlist.IsRequired"></app-required-field-mark> -->
+                        <app-required-field-mark></app-required-field-mark>
+                     </legend>
+                     <app-single-select-control [smartlistName]='this.smartlistNameDimissione'
+                        [label]="this.labelDimissione"
+                        [selectedItem]="dimissione" class="col colPadding" (valueChanged)="this.dimissione = $event">
+                     </app-single-select-control>
+                  </fieldset>
+               </div>
+            </div>
+         </fieldset>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-9">
+         <fieldset class="bordingCard">
+            <legend class="titleOption">Note</legend>
+            <app-txt-area-field placeholder="Note" [value]="note_4" fieldName="note_4"></app-txt-area-field>
+         </fieldset>
+      </div>
+      <div class="col-3" *ngIf="this.bPresenzaEffettiPersonali">
+         <fieldset class="bordingCard">
+            <legend>Effetti Personali</legend>
+            <div>
+               <ul>
+                  <li *ngFor="let item of effetti_personali">{{item | prettyLabel}}</li>
+               </ul>
+            </div>
+            <div>
+               <app-chk-field label='Riconsegnati al paziende dopo la procedura'
+                  fieldName="effetti_personali_riconsegnati" [value]="effetti_personali_riconsegnati">
+               </app-chk-field>
+            </div>
+         </fieldset>
+      </div>
+   </div>
+
+</div>

@@ -1,0 +1,44 @@
+<fieldset class="bordingCard">
+  <legend id="anagrafica-form">{{this.label}}</legend>
+  <table>
+    <tr>
+      <td class="table-label-cell">
+        <label>Cognome:</label>
+      </td>
+      <td>
+        <input type="text" matInput placeholder="Cognome" name="cognome" required [(ngModel)]="cognome"
+          (change)="this.cognomeChanged.emit(this.cognome)" (focusout)="inputFocusOut($event)"
+          class="form-control height margin-top-input bordered">
+      </td>
+      <td class="table-label-cell">
+        <app-required-field-mark [isVisible]="isCognomeRequired"></app-required-field-mark>
+      </td>
+    </tr>
+    <tr>
+      <td class="table-label-cell">
+        <label>Nome:</label>
+      </td>
+      <td>
+        <input type="text" matInput placeholder="Nome" name="nome" required [(ngModel)]="nome"
+          (change)="this.nomeChanged.emit(this.nome)" (focusout)="inputFocusOut($event)"
+          class="form-control height margin-top-input bordered">
+      </td>
+      <td class="table-label-cell">
+        <app-required-field-mark [isVisible]="isNomeRequired"></app-required-field-mark>
+      </td>
+    </tr>
+    <tr>
+      <td class="table-label-cell">
+        <label>Data di Nascita:</label>
+      </td>
+      <td>
+        <input type="text" [textMask]="{mask: datemask}" inputmode="numeric" matInput placeholder="gg/mm/aaaa" name="data_di_nascita" required
+          [(ngModel)]="data_di_nascita" (change)="this.data_di_nascitaChanged.emit(this.data_di_nascita)"
+          (focusout)="inputFocusOut($event)" class="form-control height margin-top-input bordered">
+      </td>
+      <td class="table-label-cell">
+        <app-required-field-mark [isVisible]="isDataDiNascitaRequired"></app-required-field-mark>
+      </td>
+    </tr>
+  </table>
+</fieldset>

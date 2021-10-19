@@ -1,0 +1,188 @@
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AuthenticationService } from '../_services';
+import { User } from '../_models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NavCommandsService } from '../navbar-commands.service';
+import { ProtocolService } from '../protocol.service';
+import { NavbarNavigation } from '../navbar-navigation';
+import { NavbarNavigationService } from '../navbar-navigation.service';
+import { SaveService } from '../save.service';
+import { environment } from 'src/environments/environment';
+import { UrlConstants } from '../_constants/url.constants';
+import { GETService } from '../get.service';
+import { POSTService } from '../post.service';
+
+@Component({
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
+})
+
+export class NavbarComponent implements OnInit {
+
+  currentPage: number;
+  currentUser: User;
+  image_navbar: string;
+  image_stop: string;
+  image_pause: string;
+  image_next: string;
+  image_previous: string;
+  next: string;
+  previous: string;
+  currentPhase: string;
+
+
+  @Input() protocolNumber: string;
+  @Input() cardPath: string;
+
+  firstPage: NavbarNavigation;
+  secondPage: NavbarNavigation;
+  thirdPage: NavbarNavigation;
+  constructor(private route: ActivatedRoute,
+    public router: Router,
+    private authenticationService: AuthenticationService,
+    private protocolService: ProtocolService,
+    private navigationService: NavbarNavigationService,
+    private disableService: SaveService,
+    public serviceGET: GETService,
+    private postService: POSTService
+
+  ) {
+    router.events.subscribe((val) => this.checkAll());
+  }
+
+  ngOnInit() {
+    this.image_navbar = this.getImageNavbar("logo");
+    this.image_next = this.getImageNavbar("next");
+    this.image_previous = this.getImageNavbar("previous");
+    this.image_pause = this.getImageNavbar("pause");
+    this.image_stop = this.getImageNavbar("stop");
+  }
+
+  getImageNavbar(nameImage) {
+    return environment.apiUrl + `/content/next-forms/img/schedaInf/${nameImage}.png`;
+    //
+    return `http://next2u.myddns.com:8080/content/next-forms/img/schedaInf/${nameImage}.png`;
+  }
+  getUrl() {
+    return this.router.url;
+  }
+
+  checkAll() {
+    this.getNextText;
+    this.getPreviousText;
+    this.checkNext;
+    this.checkPrevious;
+    this.getPhase;
+  }
+
+  pageUrls: string[] = [UrlConstants._1_ACCOGLIENZA, UrlConstants._2_PRE_PROCEDURA, UrlConstants._3_INTRA_PROCEDURA, UrlConstants._4_POST_PROCEDURA];
+
+  checkIfIsNewCard() {
+    let page: string = this.router.url;
+    return this.pageUrls.includes(page);
+  }
+
+  goToNextPage() {
+    let page: string = this.router.url;
+    switch (page) {
+      case UrlConstants._1_ACCOGLIENZA:
+        this.router.navigate([UrlConstants._2_PRE_PROCEDURA]);
+        break;
+      case UrlConstants._2_PRE_PROCEDURA:
+        this.router.navigate([UrlConstants._3_INTRA_PROCEDURA]);
+        break;
+      case UrlConstants._3_INTRA_PROCEDURA:
+        this.router.navigate([UrlConstants._4_POST_PROCEDURA]);
+        break;
+      case UrlConstants._4_POST_PROCEDURA:
+        let url: string = `/${environment.printPostUrl}`;
+        this.serviceGET.getWorkingData().subscribe(d => {
+          let x = this.serviceGET.getWithData(d, url);
+          console.log(x);
+        }, error => {
+          console.log(error);
+        });
+<<<<<<< HEAD
+        // this.router.navigate([UrlConstants._0_HOME]);
+=======
+        //this.router.navigate([UrlConstants._0_HOME]);
+>>>>>>> next
+        break;
+    }
+  }
+
+  goToPreviousPage() {
+    let page: string = this.router.url;
+    switch (page) {
+      case UrlConstants._2_PRE_PROCEDURA:
+        this.router.navigate([UrlConstants._1_ACCOGLIENZA]);
+        break;
+      case UrlConstants._3_INTRA_PROCEDURA:
+        this.router.navigate([UrlConstants._2_PRE_PROCEDURA]);
+        break;
+      case UrlConstants._4_POST_PROCEDURA:
+        this.router.navigate([UrlConstants._3_INTRA_PROCEDURA]);
+        break;
+    }
+  }
+
+  checkNext() {
+    return true;
+  }
+
+  checkPrevious() {
+    let page: string = this.router.url;
+    // if(page  === '/seconda-form' || page === '/terza-form')
+    if (page === UrlConstants._1_ACCOGLIENZA) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  getNextText() {
+    let page: string = this.router.url;
+    switch (page) {
+      case UrlConstants._1_ACCOGLIENZA:
+        return "Accoglienza Pre-Procedura 2/2";
+      case UrlConstants._2_PRE_PROCEDURA:
+        return "Intra-Procedura";
+      case UrlConstants._3_INTRA_PROCEDURA:
+        return "Post-Procedura";
+      case UrlConstants._4_POST_PROCEDURA:
+        return "Chiusura Scheda";
+    }
+  }
+
+  getPreviousText() {
+    let page: string = this.router.url;
+    switch (page) {
+      case UrlConstants._2_PRE_PROCEDURA:
+        return "Accoglienza Pre-Procedura 1/2";
+      case UrlConstants._3_INTRA_PROCEDURA:
+        return "Accoglienza Pre-Procedura 2/2";
+      case UrlConstants._4_POST_PROCEDURA:
+        return "Intra-Procedura";
+    }
+  }
+
+  getPhase() {
+    let page: string = this.router.url;
+    switch (page) {
+      case UrlConstants._1_ACCOGLIENZA:
+        return "Accoglienza e Pre-Procedura 1/2";
+      case UrlConstants._2_PRE_PROCEDURA:
+        return "Accoglienza e Pre-Procedura 2/2";
+      case UrlConstants._3_INTRA_PROCEDURA:
+        return "Intra-Procedura";
+      case UrlConstants._4_POST_PROCEDURA:
+        return "Post-Procedura";
+    }
+  }
+
+  setInputToDisable(pageToDisable: string) {
+    //this.disableService.saveInSession(pageToDisable, "true");
+  }
+
+}

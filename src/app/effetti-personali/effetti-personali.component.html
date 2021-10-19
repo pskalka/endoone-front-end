@@ -1,0 +1,40 @@
+<fieldset class="bordingCard">
+    <legend class="titleOption">{{this.labelTemplate}}</legend>
+    <div>
+        <div class="cb-wrapper" [ngClass]="{'cb-vertival': !tmp }">
+            <!-- <mat-checkbox class="mat-checkbox mat-accent option" *ngFor="let item of template.checkbox "  [value]="item.value "> -->
+            <section [formGroup]="this.checkedItems">
+                <mat-checkbox formControlName="protesi_dentaria" (change)="putChkCHange()">Protesi Dentaria</mat-checkbox><br/>
+                <mat-checkbox formControlName="protesi_acustica" (change)="putChkCHange()">Protesi Acustica</mat-checkbox><br />
+                <mat-checkbox formControlName="occhiali" (change)="putChkCHange()">Occhiali</mat-checkbox>
+            </section>
+        </div>
+        <!-- <mat-form-field>
+        <input matInput #input >
+    </mat-form-field> -->
+        <form class="form-height">
+            <app-txt-field placeholder="Effetti Personali" [value]="effetti_personali_text" fieldName="effetti_personali_text"></app-txt-field>
+        </form>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            Consegnati a:
+        </div>
+        <div class="col">
+            <mat-radio-group [(ngModel)]="selectedRadioValue" (change)="OnChangeRadioField($event)" [value]="selectedRadioValue">
+                <!--<mat-radio-button class="mat-radio-button mat-accent option" *ngFor="let item of template.radiovalues " [value]="item.value ">
+        {{item.viewValue}}
+    </mat-radio-button>-->
+                <mat-radio-button class="mat-radio-button mat-accent option" [value]="'accompagnatore'">
+                    Accompagnatore
+                </mat-radio-button>
+                <mat-radio-button class="mat-radio-button mat-accent option" [value]="'personale_sanitario'">
+                    Personale sanitario
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <!-- <mat-checkbox><p class="cb-wrapper">Riconsegnati al paziente dopo la procedura</p></mat-checkbox> -->
+    </div>
+
+</fieldset>

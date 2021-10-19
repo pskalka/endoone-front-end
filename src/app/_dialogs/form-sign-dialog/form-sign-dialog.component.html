@@ -1,0 +1,9 @@
+<p>form-sign-dialog works!</p>
+<div *ngFor="let requiredSign of getRequiredSigns()">
+   <div>
+      <label>{{requiredSign.Label}}</label>
+   </div>
+   <div>
+      <input type="file" accept="image/*" capture="environment">
+   </div>
+</div>

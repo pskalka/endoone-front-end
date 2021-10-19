@@ -1,0 +1,66 @@
+.main{
+  position: fixed;
+  height: 100%;
+  margin-top: 1%;
+}
+table {
+    height: 51em !important;
+    width: 100% !important;
+}
+  a{
+      height:100% !important;
+      width: 100% !important;
+  }
+  div{
+    text-align: center;
+    padding: auto;
+  }
+  mat-card{
+    height: 80vh !important;
+    width:24% !important;
+    float:left !important;
+    margin:6px;
+  }
+img {
+  width:80%;
+  margin-top:5px;
+  margin-bottom:20px;
+}
+
+@media screen and (min-width: 1101px) {
+  p.titoli {
+    font-size: 1.5em;;
+  }
+  p.content{
+    font-size: 1.1em;;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  p.titoli {
+    font-size: 1em;;
+  }p.content{
+    font-size: 0.8em;;
+  }
+}
+
+.app-header {
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.positronx {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.positright {
+  text-decoration: none;
+  color: #ffffff;
+  text-align: right;
+}

@@ -1,0 +1,58 @@
+<!-- gestione con bootstra 2 e 2-->
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-toolbar color="primary" class="app-header">
+      <div class="positronx">EndoOne</div>
+      <div ><a href = "logout" class="positright">LogOut: </a>{{username}}</div>
+    </mat-toolbar>
+</div>
+
+<div class="main">
+    
+    <!-- <mat-card class="card_nuovo" [routerLink]="['/covid-form']" routerLinkActive="active"> -->
+    <mat-card class="card_nuovo" [routerLink]="['/1-accoglienza']" routerLinkActive="active"
+        (click)="onClickNuovaScheda()">
+        <mat-card-title>
+            <p class="titoli">Nuova scheda</p>
+        </mat-card-title>
+        <img [src]="this.image_nuovo">
+        <mat-card-content>
+            <p>
+                {{getNuovaSchedaLabel()}}<br>
+                <span>{{this.scheda_aperte}}</span>
+            </p>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="card_search">
+        <mat-card-title>
+            <p class="titoli">Cerca schede</p>
+        </mat-card-title>
+        <img [src]="this.image_cerca">
+        <mat-card-content>
+            <p class="content">
+                Questa funzione non è ancora disponibile
+            </p>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="card_admin">
+        <mat-card-title>
+            <p class="titoli">Amministrazione</p>
+        </mat-card-title>
+        <img [src]="this.image_admin">
+        <mat-card-content>
+            <p class="content">
+                Questa funzione non è ancora disponibile
+            </p>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="card_stats">
+        <mat-card-title>
+            <p class="titoli">Statistiche</p>
+        </mat-card-title>
+        <img [src]="this.image_stats">
+        <mat-card-content>
+            <p class="content">
+                Questa funzione non è ancora disponibile
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>

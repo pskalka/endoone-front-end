@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-1" [routerLink]="['/']">{{username}}</div>
+  <div class="col-1" [routerLink]="['/']"></div>
+  <div class="col-1"><img [src]="this.image_pause" [routerLink]="['/home']" routerLinkActive="active" /></div>
+  <div class="col-1"><img [src]="this.image_stop" (click)="onStopClick()" /></div>
+  <div class="col-4">
+    <div>SCHEDA INFERMIERISTICA - ENDOSCOPIA</div>
+    <div>Fase: {{page_header}}</div>
+  </div>
+  <div class="col-2">
+    <div class="row" *ngIf="can_go_back" (click)="this.goToPreviousPage()">
+      <div class="col-10 text-wrap">{{previous_text}}</div>
+      <div class="col-2"><img [src]="this.image_previous" /></div>
+    </div>
+  </div>
+  <div class="col-2">
+    <div class="row" *ngIf="can_go_forward" (click)="this.goToNextPage()">
+      <div class="col-2"><img [src]="this.image_next" /></div>
+      <div class="col-10 text-wrap">{{next_text}}</div>
+    </div>
+  </div>
+</div>

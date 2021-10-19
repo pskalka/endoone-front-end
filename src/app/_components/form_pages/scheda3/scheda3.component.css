@@ -1,0 +1,68 @@
+#mainContainer{ 
+    max-width: 98% !important;
+    margin: auto !important;
+}
+#mainRow{
+    max-height:100px;
+}
+
+.colFloat{
+    float: left !important;
+}
+
+.bordingCard{
+    border: 0.18vh solid #B5B2A4;
+    border-radius: 1.2vh;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0.5vh;
+}
+#accompagnatore{
+    float: right !important;
+}
+
+
+legend{
+    width: auto;
+    margin:0px;
+    font-size: 1.1em;
+}
+
+.colPadding{
+    padding:0;
+}
+
+.height{
+    height: 25px;
+}
+.margin-top-input{
+    margin-top:3px !important;
+}
+.form-height{
+    margin-bottom:3px;
+}
+
+#disabled {
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: not-allowed; /* Add a pointer on hover */
+}
+
+.margin-left-20-px {
+    margin-left: 20px;
+}
+
+.data_visita {
+    width: 100px !important;
+}
+
+.consenso_informato {
+    margin-top: 20px;
+}

@@ -1,0 +1,25 @@
+<h2>{{data.title}}</h2>
+<div *ngIf="!data.showCloseMotivation"><p><button mat-button [mat-dialog-close]="'apri'" cdkFocusInitial style="width: 130px;">Stampa Scheda</button></p></div>
+<div *ngIf="data.showCloseMotivation"><p><button mat-button [mat-dialog-close]="'apri'" cdkFocusInitial style="width: 130px;">Stampa Scheda</button></p></div>
+<p>
+   Attenzione Utilizzare prima la funzione di stampa e verificarne la corretta esecuzione.<br />
+   La chiusura della scheda comporterà la cancellazione della scheda compilata.<br />
+</p>
+
+<div *ngIf="data.showCloseMotivation">
+   <fieldset class="bordingCard">
+      <legend class="titleOption">Annullamento scheda per:</legend>
+         <mat-radio-group aria-labelledby="Motivazione Chiusura"
+                              [(ngModel)]="forzatura_chiusura" (change)="onChangeRf($event)"
+                              name="forzatura_chiusura" [(value)]="forzatura_chiusura">
+                              <mat-radio-button class="mat-radio-button mat-accent option" value="scarsa_compliance">Scarsa compliance&nbsp;</mat-radio-button>
+                              <mat-radio-button class="mat-radio-button mat-accent option" value="toilet_int">Toilet Int&nbsp;</mat-radio-button>
+                              <mat-radio-button class="mat-radio-button mat-accent option" value="non_adeguata_documentazione">Non Adeguata Documentazione&nbsp;</mat-radio-button>
+         </mat-radio-group>
+   </fieldset>
+   <fieldset class="bordingCard">
+      <legend class="titleOption">Note</legend>
+      <app-txt-area-field placeholder="Note" [value]="note_forzatura" fieldName="note_forzatura"></app-txt-area-field>
+   </fieldset>
+</div>
+<button mat-button [mat-dialog-close]="'pulisci'" style="width: 130px;">Chiudi Scheda</button>

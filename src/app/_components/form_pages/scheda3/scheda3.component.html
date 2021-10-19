@@ -1,0 +1,195 @@
+<div class="container-fluid">
+
+   <app-navbar page_header="Intra-Procedura" [can_go_back]="true" [can_go_forward]="true"
+      previous_text="Accoglienza Pre-Procedura 2/2" next_text="Post-Procedura" (nav_requested)="nav_requested($event)">
+   </app-navbar>
+
+   <div class="row">
+      <div class="col-2">
+         <fieldset class="col bordingCard">
+            <legend>Data</legend>
+            <div class="form-group">
+               {{this.data_visita | date: 'dd/MM/yyyy'}}
+            </div>
+         </fieldset>
+      </div>
+
+      <div class="col-3">
+         <fieldset class="col bordingCard">
+            <legend>Ora inizio procedura<app-required-field-mark [isVisible]="isRequired('procedura_ora_inizio')">
+               </app-required-field-mark>
+            </legend>
+            <form>
+               <div class="form-group">
+                  <!-- <input type="time" class="form-control height margin-top-input" name="procedura_ora_inizio"
+              placeholder="Inserire ora inizio" [ngModel]="procedura_ora_inizio" (change)="onTimeChange($event)"> -->
+                  <input [(ngModel)]="procedura_ora_inizio" placeholder="Ora" aria-label="Ora inizio procedura"
+                     [ngxTimepicker]="dtOraInizio" [format]="24" readonly name="dtpOraInizio"
+                     (focusout)="oraInizioFocusOut($event)">
+                  <ngx-material-timepicker #dtOraInizio [defaultTime]="this.procedura_ora_inizio_default">
+                  </ngx-material-timepicker>
+               </div>
+            </form>
+         </fieldset>
+      </div>
+      <div class="col-3">
+         <fieldset class="col bordingCard">
+            <legend>Ora fine procedura<app-required-field-mark [isVisible]="isRequired('procedura_ora_fine')">
+               </app-required-field-mark>
+            </legend>
+            <form>
+               <div class="form-group">
+                  <!-- <input type="time" class="form-control height margin-top-input" name="procedura_ora_fine"
+              placeholder="Inserire ora fine" [ngModel]="procedura_ora_fine" (change)="onTimeChange($event)"> -->
+                  <input [(ngModel)]="procedura_ora_fine" placeholder="Ora" aria-label="Ora fine procedura"
+                     [ngxTimepicker]="dtOraFine" [format]="24" readonly name="dtpOraFine"
+                     (focusout)="oraFineFocusOut($event)">
+                  <ngx-material-timepicker #dtOraFine [defaultTime]="this.procedura_ora_fine_default">
+                  </ngx-material-timepicker>
+               </div>
+            </form>
+         </fieldset>
+      </div>
+      <div class="col-3">
+         <fieldset class="col bordingCard">
+            <legend>Sala</legend>
+            <div class="form-group">
+               {{this.selezione_sala_value}}
+            </div>
+         </fieldset>
+      </div>
+   </div>
+   <div class="row">
+
+      <fieldset class="col-3 bordingCard">
+         <legend>Dati</legend>
+         <table>
+            <tr>
+               <td>Cognome:</td>
+               <td>{{this.cognome}}</td>
+            </tr>
+            <tr>
+               <td>Nome:</td>
+               <td>{{this.nome}}</td>
+            </tr>
+            <tr>
+               <td>Tipologia:</td>
+               <td>{{this.tipologia}}</td>
+            </tr>
+            <tr>
+               <td>Urgenza:</td>
+               <td>{{this.lblUrgenza}}</td>
+            </tr>
+            <tr>
+               <td>Motivo Esame:&nbsp;</td>
+               <td>{{this.esame_motivo}}</td>
+            </tr>
+         </table>
+      </fieldset>
+      <fieldset class="col bordingCard">
+         <legend>Time-out Pre-procedura</legend>
+         <div class="row">
+            <div class="col paddingLeft">
+               <mat-checkbox [(ngModel)]="componentiEquipe" class="options"
+                  (change)="chkChange('componentiEquipe', this.componentiEquipe)">Presenti tutti i componenti
+                  dell'equipe
+                  <app-required-field-mark [isVisible]="isRequired('componentiEquipe')"></app-required-field-mark>
+               </mat-checkbox><br>
+               <mat-checkbox [(ngModel)]="verificaIdentita" class="options"
+                  (change)="chkChange('verificaIdentita', this.verificaIdentita)">Verifica identità paziente/cartella
+                  clinica/consenso
+                  informato<app-required-field-mark [isVisible]="isRequired('verificaIdentita')">
+                  </app-required-field-mark>
+               </mat-checkbox><br>
+               <mat-checkbox [(ngModel)]="prescrizioni" class="options"
+                  (change)="chkChange('prescrizioni', this.prescrizioni)">Controllo/esecuzione prescrizioni
+                  pre-operatorio
+                  <app-required-field-mark [isVisible]="isRequired('prescrizioni')"></app-required-field-mark>
+               </mat-checkbox><br>
+               <mat-checkbox [(ngModel)]="CVP" class="options" (change)="chkChange('CVP', this.CVP)">
+                  Controllo/posizionamento
+                  cvp<app-required-field-mark [isVisible]="isRequired('CVP')"></app-required-field-mark>
+               </mat-checkbox><br>
+               <mat-checkbox [(ngModel)]="farmaci" class="options" (change)="chkChange('farmaci', this.farmaci)">
+                  Controllo/preparazione farmaci<app-required-field-mark [isVisible]="isRequired('farmaci')">
+                  </app-required-field-mark>
+               </mat-checkbox><br>
+               <mat-checkbox [(ngModel)]="strumento" class="options" (change)="chkChange('strumento', this.strumento)">
+                  Controllo/preparazione strumento endoscopico e dispositivi<app-required-field-mark
+                     [isVisible]="isRequired('strumento')"></app-required-field-mark>
+               </mat-checkbox><br>
+               <app-txt-area-field placeholder="Note" [value]="note_3_timeout" fieldName="note_3_timeout">
+               </app-txt-area-field>
+            </div>
+            <fieldset class="bordingCard">
+               <legend class="titleOption">Decubito
+                  <!-- <app-required-field-mark [isVisible]="smartlist.IsRequired"></app-required-field-mark> -->
+                  <app-required-field-mark></app-required-field-mark>
+               </legend>
+               <app-single-select-control [smartlistName]='"decubito"' [label]="'Decubito'" [selectedItem]="decubito"
+                  class="col colPadding" (valueChanged)="this.decubito = $event">
+               </app-single-select-control>
+            </fieldset>
+         </div>
+      </fieldset>
+   </div>
+   <div class="row">
+      <fieldset class="col bordingCard">
+         <!-- <legend class="titleOption">Monitoraggio parametri vitali</legend> -->
+         <legend class="titleOption">{{this.multiSelectFieldNames.MONITORAGGIO_PARAMETRI_VITALI}}</legend>
+         <app-test-multi [multiselectFieldName]='this.multiSelectFieldNames.MONITORAGGIO_PARAMETRI_VITALI'
+            jcrDataPrefix="MPR" [baseColWidths]="mprBaseColWidths" [dynamicColWidth]="mprDynamicColWidth">
+         </app-test-multi>
+
+      </fieldset>
+      <fieldset class="col bordingCard">
+         <legend class="titleOption" id="titleCheckbox">
+            <mat-checkbox [(ngModel)]="chkNarcosi" (change)="chkNarcosiChange($event)">
+               {{this.multiSelectFieldNames.NARCOSI}}</mat-checkbox>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-checkbox [(ngModel)]="chkSedazione" (change)="chkSedazioneChange($event)">
+               {{this.multiSelectFieldNames.SEDAZIONE}}</mat-checkbox>
+         </legend>
+         <!-- <legend class="titleOption" id="titleCheckbox">{{this.multiSelectFieldNames.SEDAZIONE}} -->
+
+
+
+         <app-test-multi [multiselectFieldName]='this.multiSelectFieldNames.SEDAZIONE' jcrDataPrefix="SED"
+            [baseColWidths]="sedBaseColWidths" [dynamicColWidth]="sedDynamicColWidth">
+         </app-test-multi>
+      </fieldset>
+
+   </div>
+   <div class="row">
+      <div class="col-3">
+         <fieldset class="col bordingCard">
+            <legend class="titleOption">Indagini di Laboratorio</legend>
+            <app-multi-select-control [smartlistName]="this.indagini_di_laboratorio_smartlist_name">
+            </app-multi-select-control>
+            <hr />
+            <div class="row">
+               <div class="col-4">N. Boccetti</div><input matInput type="number" style="width: 45px;" min="0" max="12"
+                  [(ngModel)]="n_boccetti" name="n_boccetti" (change)="txtNBoccettiOnChange()"
+                  class="form-control height margin-top-input py-2 border" value="0">
+            </div>
+         </fieldset>
+      </div>
+      <div class="col-9">
+         <div>
+            <fieldset class="col bordingCard">
+               <!-- <legend class="titleOption">Tracciabilità dispositivi</legend> -->
+               <legend class="titleOption">{{this.multiSelectFieldNames.TRACCIABILITA_DISPOSITIVI}}</legend>
+               <app-test-multi [multiselectFieldName]='this.multiSelectFieldNames.TRACCIABILITA_DISPOSITIVI'
+                  jcrDataPrefix="TRDIS" [baseColWidths]="trdBaseColWidths" [dynamicColWidth]="trdDynamicColWidth">
+               </app-test-multi>
+            </fieldset>
+         </div>
+         <div>
+            <fieldset class="bordingCard">
+               <legend class="titleOption">Note</legend>
+               <app-txt-area-field placeholder="Note" [value]="note_3" fieldName="note_3"></app-txt-area-field>
+            </fieldset>
+         </div>
+      </div>
+   </div>
+
+</div>

@@ -1,0 +1,16 @@
+<fieldset class="bordingCard">
+    <legend class="titleOption " >{{template.label}}</legend>
+
+    <mat-form-field class="height">
+        <mat-select [(ngModel)]="inputvalue">
+            <mat-option *ngFor="let item of template.dropdownvalues " [value]="item.value ">
+                {{item.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field >
+        <label>Intervento</label>
+        <input matInput #input matInputrequired [(ngModel)]="inputvalue " name="output ">
+</mat-form-field>
+</fieldset>

@@ -1,0 +1,30 @@
+<div>
+   <mat-form-field class="height">
+      <mat-select [(ngModel)]="selectedDdlItem" name="ddlAdditionalItems" [disabled]="isDisabled()">
+         <!-- <mat-option *ngFor="let option of options " [value]="this.option.itemValue ">  -->
+         <mat-option *ngFor="let value of this.ddlItems" [value]="value">
+            <!-- {{this.option.itemView}} -->
+            <!-- {{this.smartlist.getDdlFields().get(dropDownListField).get(this.values).get(value)}} -->
+            {{value| prettyLabel}}
+         </mat-option>
+      </mat-select>
+   </mat-form-field>
+   <span *ngIf="canEdit()">
+      <span class="material-icons orange600" (click)="onBtnAddClick()"
+         style="cursor: pointer;">add_circle_outline</span>
+   </span>
+</div>
+
+<div>
+   <input type="text" placeholder="Aggiungi una voce" name="txtManual" [(ngModel)]="txtManualModel"
+      [maxlength]="smartlist.MaxLength" class="form-control height margin-top-input" [readonly]="!canEdit()">
+</div>
+
+<div>
+   <section [formGroup]="this.formGroup">
+      <div *ngFor="let chk of myCheckBoxes">
+         <mat-checkbox [formControlName]="chk.controlName" (change)="putChkCHange()" [disabled]="isDisabled()">
+            {{chk.label | prettyLabel}}</mat-checkbox>
+      </div>
+   </section>
+</div>

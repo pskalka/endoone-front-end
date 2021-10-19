@@ -1,0 +1,17 @@
+<fieldset class="bordingCard flex-fill bd-highlight">
+   <legend class="titleOption">{{label}}</legend>
+
+   <mat-form-field class="height" *ngFor="let dropDownListField of this.getKeys(this.smartlist.formDdlFields)">
+      <mat-select (selectionChange)="OnChangeDdlField($event)" [disabled]="isDisabled()">
+         <mat-option *ngFor="let pr of presetRemarks" [value]="pr">
+            {{pr}}
+         </mat-option>
+      </mat-select>
+   </mat-form-field>
+
+   <textarea class="form-control height margin-left-20-px margin-top-input" [disabled]="isDisabled()"
+      [maxlength]="maxLength()" [name]="fieldName" [placeholder]="hint" [(ngModel)]="value"
+      (focusout)="inputFocusOut()">
+   </textarea>
+
+</fieldset>

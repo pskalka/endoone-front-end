@@ -1,0 +1,28 @@
+.cb-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+  }
+  
+  .mat-checkbox {
+    margin-left:20px;
+  
+  } 
+  
+  .cb-vertival {
+    flex-flow: column;
+  }
+
+.bordingCard{
+  border: 0.2vh solid #B5B2A4;
+  border-radius: 1.2vh;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0.5vh;
+}
+
+.titleOption{
+    width: auto;
+    margin:0px;
+    font-size: 1.1em;;
+}

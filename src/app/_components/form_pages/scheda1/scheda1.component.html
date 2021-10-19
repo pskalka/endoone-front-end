@@ -1,0 +1,160 @@
+<div class="container-fluid" id="mainContainer">
+
+   <app-navbar page_header="Accoglienza e Pre-Procedura 1/2" [can_go_back]="false" [can_go_forward]="true"
+      next_text="Accoglienza Pre-Procedura 2/2" (nav_requested)="nav_requested($event)"></app-navbar>
+
+   <div *ngIf="!this.isDisable()" id="disabled">
+      <app-navbar [protocolNumber]="" [cardPath]="this.protocol.cardPath"></app-navbar>
+   </div>
+
+   <div class="row" style="height: 85px">
+      <div class="col-sm-auto">
+         <fieldset class="col bordingCard" style="height: 70%">
+            <legend>Data</legend>
+            <div class="form-group">
+               <!-- <input type="date" [(ngModel)]="data_visita" [value]="data_visita" name="date" class="form-control height margin-top-input" (change)="onDataVisitaChange()"
+              placeholder="Inserire data"> -->
+               <mat-form-field class="data_visita">
+                  <input matInput [matDatepicker]="picker3" placeholder="gg/mm/aaaa" [(ngModel)]="data_visita" required
+                     name="data_visita" (dateChange)="addEvent('change', 'data_visita', $event)">
+                  <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                  <mat-datepicker #picker3></mat-datepicker>
+               </mat-form-field>
+            </div>
+         </fieldset>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-3">
+         <app-anagrafica class="col colPadding" [cognome]="cognome" [nome]="nome" [data_di_nascita]="data_di_nascita"
+            [isCognomeRequired]="isRequired('cognome')" [isNomeRequired]="isRequired('nome')"
+            [isDataDiNascitaRequired]="isRequired('data_di_nascita')" (cognomeChanged)="this.cognomeChanged($event)"
+            (nomeChanged)="this.nomeChanged($event)" (data_di_nascitaChanged)="this.data_di_nascitaChanged($event)"
+            [label]="this.anagrafica" [numeroProtocollo]="this.protocol.protocolNumber"></app-anagrafica>
+      </div>
+      <div class="col-9 d-flex bd-highlight">
+         <fieldset class="bordingCard flex-fill bd-highlight">
+            <legend class="titleOption">Triage Covid</legend>
+            <app-chk-field label='Scheda Triage' fieldName="triage_covid_scheda_triage"
+               [value]="triage_covid_scheda_triage"></app-chk-field>
+            <app-chk-field label='Vaccinazione' fieldName="triage_covid_vaccinazione"
+               [value]="triage_covid_vaccinazione">
+            </app-chk-field>
+            <app-chk-field label='Tampone' fieldName="triage_covid_tampone" [value]="triage_covid_tampone">
+            </app-chk-field>
+
+            <app-txt-area-field placeholder="Note" [value]="triage_covid_note" fieldName="triage_covid_note">
+            </app-txt-area-field>
+         </fieldset>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-3 d-flex bd-highlight">
+         <fieldset class="bordingCard flex-fill bd-highlight">
+            <legend>Dati Informativi Base</legend>
+            <app-multi-select-control [smartlistName]="this.dati_informativi_base_smartlistName">
+            </app-multi-select-control>
+         </fieldset>
+      </div>
+
+      <div class="col-3">
+         <fieldset class="bordingCard">
+            <legend class="titleOption">Provenienza
+               <!-- <app-required-field-mark [isVisible]="smartlist.IsRequired"></app-required-field-mark> -->
+               <app-required-field-mark></app-required-field-mark>
+            </legend>
+            <app-single-select-control [smartlistName]='this.smartlistNameProvenienza' [label]="this.labelProvenienza"
+               [selectedItem]="provenienza" class="col colPadding" (saveData)="addSaveData($event)"
+               (valueChanged)="this.provenienza = $event"></app-single-select-control>
+         </fieldset>
+      </div>
+
+      <div class="col-3">
+         <app-mod-arrivo [smartlistName]='this.smartlistNameModArrivo' [label]="this.labelModArrivo"
+            class="col colPadding" [isRequired]="isRequired('modalita_arrivo')"
+            [presenza_accompagnatore]="presenza_accompagnatore" [selectedItem]="modalita_arrivo"
+            (valueChanged)="this.modalita_arrivo = $event" (saveData)="addSaveData($event)"></app-mod-arrivo>
+      </div>
+
+      <div class="col-3">
+         <fieldset class="bordingCard">
+            <legend>Effetti Personali</legend>
+            <app-multi-select-control [smartlistName]="this.effettiPersonaliSmartlistName" style="height: 90%;">
+            </app-multi-select-control>
+            <hr>
+            <div class="row">
+               <div class="col">
+                  Consegnati a:
+               </div>
+               <div class="col">
+                  <mat-radio-group [(ngModel)]="effetti_personali_consegnati_a" (change)="OnChangeRadioField($event)"
+                     [value]="effetti_personali_consegnati_a">
+                     <mat-radio-button class="mat-radio-button mat-accent option" [value]="'accompagnatore'">
+                        PTE/Accompagnatore
+                     </mat-radio-button>
+                     <mat-radio-button class="mat-radio-button mat-accent option" [value]="'personale_sanitario'">
+                        Personale sanitario
+                     </mat-radio-button>
+                  </mat-radio-group>
+               </div>
+               <!-- <mat-checkbox><p class="cb-wrapper">Riconsegnati al paziente dopo la procedura</p></mat-checkbox> -->
+            </div>
+         </fieldset>
+      </div>
+
+   </div>
+
+   <div class="row">
+      <div class="col-3">
+      </div>
+      <div class="col-3">
+         <fieldset class="bordingCard" style="height: 95%;">
+            <legend>Deficit</legend>
+            <app-multi-select-control [smartlistName]="this.deficitSmartlistName" style="height: 90%;">
+            </app-multi-select-control>
+         </fieldset>
+      </div>
+
+      <div class="col-3">
+         <fieldset class="bordingCard">
+            <legend class="titleOption">Stato Coscienza
+               <!-- <app-required-field-mark [isVisible]="smartlist.IsRequired"></app-required-field-mark> -->
+               <app-required-field-mark></app-required-field-mark>
+            </legend>
+            <app-single-select-control [smartlistName]='this.smartlistNameStatoCos' [label]="this.labelStatoCos"
+               [selectedItem]="stato_coscienza" class="col colPadding" (saveData)="addSaveData($event)"
+               (valueChanged)="this.stato_coscienza = $event" style="height: 98%;"></app-single-select-control>
+         </fieldset>
+      </div>
+
+      <div class="col-3" style="position: relative;">
+         <fieldset class="bordingCard">
+            <legend class="titleOption">Deambulazione
+               <!-- <app-required-field-mark [isVisible]="smartlist.IsRequired"></app-required-field-mark> -->
+               <app-required-field-mark></app-required-field-mark>
+            </legend>
+            <app-single-select-control [smartlistName]='this.smartlistNameDeambulazione'
+               [label]="this.labelDeambulazione" [selectedItem]="deambulazione" class="col colPadding"
+               (saveData)="addSaveData($event)" (valueChanged)="this.deambulazione = $event" style="height: 98%;">
+            </app-single-select-control>
+         </fieldset>
+      </div>
+
+   </div>
+
+   <div class="row">
+      <div class="col-3"></div>
+      <div class="col-9 d-flex bd-highlight">
+
+         <app-form-remarks-control fieldName="note_1" hint="Inserire le note qui" label="Note" smartlistName="note_1"
+            [value]="note_1"></app-form-remarks-control>
+         <!-- <fieldset class="bordingCard flex-fill bd-highlight">
+        <legend class="titleOption">Note</legend>
+        <app-txt-area-field placeholder="Note" [value]="note_1" fieldName="note_1"></app-txt-area-field>
+      </fieldset> -->
+      </div>
+   </div>
+
+</div>

@@ -1,0 +1,18 @@
+.bordingCard{
+    border: 0.2vh solid #B5B2A4;
+    border-radius: 1.2vh;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0.5vh;
+}
+
+
+legend{
+    width: auto;
+    margin:0px;
+    font-size: 1.1em;;
+}
+
+mat-checkbox{
+    margin-bottom: 2px;
+}
