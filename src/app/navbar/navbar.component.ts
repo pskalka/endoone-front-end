@@ -90,7 +90,7 @@ export class NavbarComponent implements OnInit {
     this.bShowMotivationMessage = false;
     this.sTitoloMessaggioPopUp = "Chiusura Scheda:";
 
-    this.username = this.authenticationService.getUsername();
+    this.username = this.authenticationService.getUser().username;
   }
 
   getImageNavbar(nameImage: string) {

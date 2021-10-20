@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProtocolloBean, User } from '../_models';
+import { ProtocolloBean } from '../_models';
 import { ProtocolService } from '../protocol.service';
 import { GenerateSecretService } from '../generate-secret.service';
 import { GETService } from '../get.service';
@@ -24,22 +24,15 @@ export class HomeComponent implements OnInit {
   image_stats!: string;
   image_admin!: string;
   scheda_aperte!: string;
-  public userName!: string;
-  public deviceName!: string;
-  public salaName!: string;
-  public gruppi!: string;
-  public user!: User;
-
-  constructor(
-    private authenticationService: AuthenticationService,
-    private getService: GETService,
-    private http: HttpClient,
-    private postService: POSTService,
+  constructor(private http: HttpClient, private route: ActivatedRoute,
+    private router: Router,
     private protocolService: ProtocolService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+    private getService: GETService,
+    private postService: POSTService,
+    private authenticationService: AuthenticationService) { }
 
     readonly routerLink1: string = `['/${UrlConstants._1_ACCOGLIENZA}']`;
+    username!: string;
 
   ngOnInit(){
     this.getAuth();

@@ -1,11 +1,14 @@
 <!-- Toolbar -->
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-<mat-toolbar color="primary" class="app-header">
-  <div><a href="#" target="_blank" class="positronx">EndoOne</a></div>
+<mat-toolbar class="app-header">
+  <div><a href="#" target="_blank" class="positronx">Endo One</a></div>
 </mat-toolbar>
 
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="example-form">
+        <mat-error appearance="">
+          <input matInput formControlName="error" type="text" readonly>
+        </mat-error>
         <mat-form-field appearance="legacy">
           <mat-label>Username</mat-label>
           <input matInput placeholder="Username" formControlName="username" type="text">

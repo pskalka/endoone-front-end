@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SessionStorageService } from 'ngx-webstorage';
 import { first } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../_services';
 
 
@@ -21,11 +23,8 @@ export class LoginComponent implements OnInit {
   constructor( private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) {
-      // if (this.authenticationService.userValue) {
-      //   this.router.navigate(['/']);
-      // }
-
+    private authenticationService: AuthenticationService,
+    private sessionStorage: SessionStorageService) {
    }
 
   //Metodo per l'inizializzazione del componente, si crea la Form e si imposta l'URL.
@@ -33,7 +32,8 @@ export class LoginComponent implements OnInit {
     // this.logger.log(logLevelModel.debug, LoginComponent.name, "INIZIO - Inizializzazione del componente.");
     this.loginForm = new FormGroup({
       username: new FormControl(''),
-      password: new FormControl('')
+      password: new FormControl(''),
+      error: new FormControl('')
     })
     //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     // this.logger.log(logLevelModel.debug, LoginComponent.name, "FINE - Inizializzazione del componente.");
@@ -58,8 +58,60 @@ export class LoginComponent implements OnInit {
       (data) => {},
       (error) => {
         if ("OK" == error) {
-          this.authenticationService.setUser(this.f.username.value);
-          this.router.navigate(["home"]);
+            this.authenticationService.loadUserData(this.f.username.value).subscribe(
+            (user) => {
+              user.username = this.f.username.value;
+              user.id = user.path.replace("/home/users/endoone-login/", "");
+              user.Groups = [];
+              user.memberOf.forEach (function(value) {
+                user.Groups.push(value.replace("/system/userManager/group/", ""));
+              });
+              //Recupero Nome macchina da ip client
+              let device = this.authenticationService.loadDeviceName().subscribe(
+                res  => {
+                  user.deviceName = res.device;
+                      //Recupero sala da nome macchina
+                      if (!this.authenticationService.isInGroup(environment.gruppoendoAdmin, user))
+                      {
+                        let sala = this.authenticationService.loadSalaDevice(user.deviceName).subscribe(
+                          ressala  => {
+                            user.sala = ressala.ambulatorio;
+                            this.sessionStorage.store("user", user);
+                            this.router.navigate(["home"]);
+                          }, 
+                          (error) => {
+                            this.f.error.setValue("Sala non configurata per il device.");
+                          },
+                          () => {
+                              console.log();
+                          }
+                        )
+                      } else {
+                        this.sessionStorage.store("user", user);
+                        this.router.navigate(["home"]);
+                      }
+                  //this.sessionStorage.store("user", user);
+                  //this.router.navigate(["home"]);
+                }, 
+                (error) => {console.error(error);
+                  this.f.error.setValue("Invalid Device name");
+                },
+                () => {
+                    console.log();
+                }
+              )
+            },
+            (error) => {
+              console.error(error);
+              this.f.error.setValue("Invalid user or password");
+            },
+            () => {
+              console.log("setUser complete");
+            });
+          
+        } else {
+          console.error(error);
+          this.f.error.setValue("Invalid user or password");
         }
       }
     );

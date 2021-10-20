@@ -9,7 +9,7 @@ const PROXY_CONFIG = [
          "/system",
          "/endoone/machinename"
       ],
-      target: "https://localhost",
+      target: "http://localhost:8080",
       secure: false,
       logLevel: "debug"
    }

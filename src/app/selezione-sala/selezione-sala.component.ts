@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GETService } from '../get.service';
 import { POSTService } from '../post.service';
 import { SchedaSlingAttributeBean } from '../_models/SchedaSlingAttributeBean';
 
@@ -17,9 +18,25 @@ export class SelezioneSalaComponent implements OnInit {
 
   @Output() valueChanged = new EventEmitter<string>();
 
-  constructor(private postService: POSTService) { }
+  constructor(private postService: POSTService, private getService: GETService) { }
 
   ngOnInit() {
+
+    let salaList = this.getService.getSalaList().subscribe(
+      res  => {
+        console.log(Object.keys(res));
+        this.values = Object.keys(res);
+        this.values.shift();
+        
+      }, 
+      (error) => {
+        console.log("Sale non configurate.");
+      },
+      () => {
+          console.log();
+      }
+    )
+
   }
 
   postAttribute(fieldId: string, fieldValue: string) {

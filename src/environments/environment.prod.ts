@@ -21,5 +21,9 @@ export const environment = {
   pathWorkAreaSchedaTablet: 'next-forms/dati/endoscopia-chivasso/archivio/WorkArea/Desktop',
   pathWorkAreaSchedaAttive: 'next-forms/dati/endoscopia-chivasso/archivio/WorkArea/Desktop',
   printPostUrl: 'next-forms/pdfscheda',
-  defaultMaxLength: 4096
+  defaultMaxLength: 4096,
+  gruppoendoSegreteria: 'endo-segreteria',
+  gruppoendoInfermieri: 'endo-infermieri',
+  gruppoendoMedici: 'endo-medici',
+  gruppoendoAdmin: 'endo-admin'
 };

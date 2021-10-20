@@ -8,6 +8,7 @@ import { tap } from 'rxjs/operators';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { SchedaSlingAttributeBean } from './_models/SchedaSlingAttributeBean';
 import { Observable } from 'rxjs';
+import { SalaList } from './_models/sala-list';
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +70,7 @@ export class GETService {
       headers: new HttpHeaders({
         'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
         // 'req_validate_protocol': this.getReqValidateProtocol(),
-        'req_user': this.authenticationService.getUsername(),
+        'req_user': this.authenticationService.getUser().username,
       })
     };
     // this.logger.log(logLevelModel.debug, GetService.name, "FINE - Chiamata per la creazione di un nuovo protocollo.");
@@ -155,6 +156,10 @@ export class GETService {
   
     let url = "/bin/cpm/nodes/property.map.json/" + path;
     return this.http.get<SchedaSlingAttributeBean[]>(url, httpOptions);
+  }
+
+  getSalaList() : Observable<SalaList> {
+    return this.http.get<SalaList>(`${environment.apiUrl}/configuration/endoone-sale.1.json`);
   }
 
 }

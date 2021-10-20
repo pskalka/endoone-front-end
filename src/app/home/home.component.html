@@ -1,16 +1,17 @@
 <!-- gestione con bootstra 2 e 2-->
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-    <mat-toolbar color="primary" class="app-header">
-      <div class="positronx">EndoOne</div>
-      <div ><a href = "logout" class="positright">LogOut: </a>{{username}}</div>
+    <mat-toolbar class="app-header">
+        <div class="positronx">Endo One</div>
+        <div><a href="" (click)="logout()" class="positright">LogOut: </a>{{userName}} - Device: {{deviceName}} - Sala:
+            {{salaName}} - Gruppi: {{gruppi}}</div>
     </mat-toolbar>
 </div>
 
 <div class="main">
-    
+
     <!-- <mat-card class="card_nuovo" [routerLink]="['/covid-form']" routerLinkActive="active"> -->
     <mat-card class="card_nuovo" [routerLink]="['/1-accoglienza']" routerLinkActive="active"
-        (click)="onClickNuovaScheda()">
+        (click)="onClickNuovaScheda()" *ngIf="isNewVisible()">
         <mat-card-title>
             <p class="titoli">Nuova scheda</p>
         </mat-card-title>
@@ -22,7 +23,8 @@
             </p>
         </mat-card-content>
     </mat-card>
-    <mat-card class="card_search">
+
+    <mat-card class="card_search" *ngIf="isSearchVisible()">
         <mat-card-title>
             <p class="titoli">Cerca schede</p>
         </mat-card-title>
@@ -33,7 +35,8 @@
             </p>
         </mat-card-content>
     </mat-card>
-    <mat-card class="card_admin">
+
+    <mat-card class="card_admin" *ngIf="isAdminVisible()">
         <mat-card-title>
             <p class="titoli">Amministrazione</p>
         </mat-card-title>
@@ -44,7 +47,8 @@
             </p>
         </mat-card-content>
     </mat-card>
-    <mat-card class="card_stats">
+
+    <mat-card class="card_stats" *ngIf="isStatsVisible()">
         <mat-card-title>
             <p class="titoli">Statistiche</p>
         </mat-card-title>
@@ -55,4 +59,5 @@
             </p>
         </mat-card-content>
     </mat-card>
+
 </div>
